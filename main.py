@@ -1,12 +1,21 @@
 import cv2
-import numpy as np
+import os
+from tqdm import trange
 
-face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+# cuttin imgs tracking face
+def cut_imgs(img) :
+    face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+    faces = face_cascade.detectMultiScale(img, scaleFactor=1.1, minNeighbors=5)
 
-img = cv2.imread("imgs/test01.jpg")
+    for (x, y, w, h) in faces:
+        face = img[y:y+h, x:x+w]
+        cv2.imwrite("result/test01.jpg", face)
 
-faces = face_cascade.detectMultiScale(img, scaleFactor=1.1, minNeighbors=5)
+dirListing = os.listdir("imgs")
 
-for (x, y, w, h) in faces:
-    face = img[y:y+h, x:x+w]
-    cv2.imwrite("result/test01.jpg", face)
+if dirListing == 0 :
+    print("Empty dir.")
+else :
+    for x in trange(len(dirListing)) :
+        img = cv2.imread("imgs/test{}.jpg".format(str(x+1)))
+        cut_imgs(img)
