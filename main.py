@@ -13,18 +13,29 @@ def cut_imgs(img, cnt) :
     else :
         for (x, y, w, h) in faces:
             face = img[y:y+h, x:x+w]
-            cv2.imwrite("result/result{}.jpg".format(str(cnt+1)), face)
+            cv2.imwrite("result/change_data_set{}.jpg".format(str(cnt+1)), face)
             return True
 
+# rename file
+def rename_img(dir_path) :
+    diractory = os.listdir(dir_path)
+    for i in range(len(diractory)) :
+        if ".jpg" in diractory[i] or ".jpeg" in diractory[i]:
+            print(diractory[i])
+            os.rename("{}/{}".format(dir_path, diractory[i]),"{}/data_set{}.jpg".format(dir_path, i+1))
+    
 dirListing = os.listdir("imgs")
 done = 0
 err = 0
 
+
+
 if dirListing == 0 :
     print("Empty dir.")
 else :
+    rename_img("imgs")
     for x in trange(len(dirListing)) :
-        img = cv2.imread("imgs/test{}.jpg".format(str(x+1)))
+        img = cv2.imread("imgs/data_set{}.jpg".format(str(x+1)))
         
         if cut_imgs(img, x) :
             done += 1
