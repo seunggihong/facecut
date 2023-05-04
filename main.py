@@ -1,4 +1,3 @@
-from distutils.log import ERROR
 import cv2
 import os
 from tqdm import trange
@@ -36,7 +35,6 @@ if __name__ == "__main__" :
         rename_img("imgs")
         for x in trange(len(dirListing)) :
             img = cv2.imread("imgs/data_set{}.jpg".format(str(x+1)))
-            
             if cut_imgs(img, x) :
                 done += 1
             else :
