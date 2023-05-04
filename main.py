@@ -23,23 +23,23 @@ def rename_img(dir_path) :
         if ".jpg" in diractory[i] or ".jpeg" in diractory[i]:
             print(diractory[i])
             os.rename("{}/{}".format(dir_path, diractory[i]),"{}/data_set{}.jpg".format(dir_path, i+1))
-    
-dirListing = os.listdir("imgs")
-done = 0
-err = 0
 
+# main
+if __name__ == "__main__" :
+    dirListing = os.listdir("imgs")
+    done = 0
+    err = 0
 
-
-if dirListing == 0 :
-    print("Empty dir.")
-else :
-    rename_img("imgs")
-    for x in trange(len(dirListing)) :
-        img = cv2.imread("imgs/data_set{}.jpg".format(str(x+1)))
-        
-        if cut_imgs(img, x) :
-            done += 1
-        else :
-            err += 1
+    if dirListing == 0 :
+        print("Empty dir.")
+    else :
+        rename_img("imgs")
+        for x in trange(len(dirListing)) :
+            img = cv2.imread("imgs/data_set{}.jpg".format(str(x+1)))
             
-print("Done : {} Error : {}".format(done, err))
+            if cut_imgs(img, x) :
+                done += 1
+            else :
+                err += 1
+                
+    print("Done : {} Error : {}".format(done, err))
