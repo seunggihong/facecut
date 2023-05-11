@@ -12,7 +12,7 @@ def cut_imgs(img, cnt) :
     else :
         for (x, y, w, h) in faces:
             face = img[y:y+h, x:x+w]
-            cv2.imwrite("result/change_data_set{}.jpg".format(str(cnt+1)), face)
+            cv2.imwrite("result/강호동_cut{}.jpg".format(str(cnt+1)), face)
             return True
 
 # rename file
@@ -20,7 +20,7 @@ def rename_img(dir_path) :
     diractory = os.listdir(dir_path)
     for i in range(len(diractory)) :
         if ".jpg" in diractory[i] or ".jpeg" in diractory[i]:
-            os.rename("{}/{}".format(dir_path, diractory[i]),"{}/data_set{}.jpg".format(dir_path, i+1))
+            os.rename("{}/{}".format(dir_path, diractory[i]),"{}/강호동{}.jpg".format(dir_path, i+1))
 
 # main
 if __name__ == "__main__" :
@@ -33,7 +33,7 @@ if __name__ == "__main__" :
     else :
         rename_img("imgs")
         for x in trange(len(dirListing)) :
-            img = cv2.imread("imgs/data_set{}.jpg".format(str(x+1)))
+            img = cv2.imread("imgs/강호동{}.jpg".format(str(x+1)))
             if cut_imgs(img, x) :
                 done += 1
             else :
